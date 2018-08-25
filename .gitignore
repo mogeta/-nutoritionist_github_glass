@@ -11,5 +11,7 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+config.toml
+firebase_secret_key.json
 
 /.idea

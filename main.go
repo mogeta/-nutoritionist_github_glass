@@ -1,24 +1,23 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"io/ioutil"
+	"github.com/spf13/viper"
 	"fmt"
+	"time"
 )
 
 func main(){
-	url := "https://github.com/users/mogeta/contributions"
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("Authorization", "Bearer access-token")
 
-	client := new(http.Client)
-	resp, err := client.Do(req)
+	getConfig()
+	username := viper.GetString("username")
+	getContribution(username,time.Now())
+}
+
+func getConfig(){
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
 	if err != nil {
-		log.Fatal(err)
+		panic(fmt.Errorf("設定ファイル読み込みエラー: %s \n", err))
 	}
-	defer resp.Body.Close()
-
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(byteArray))
 }

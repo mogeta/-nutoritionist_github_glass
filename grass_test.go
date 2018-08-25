@@ -2,10 +2,11 @@ package main
 
 import (
 	"testing" // テストで使える関数・構造体が用意されているパッケージをimport
+	"time"
 )
 
 func TestExampleSuccess(t *testing.T) {
-	getContribution()
+	getContribution("mogeta",time.Now())
 
 		//if err != nil {
 		//	t.Fatalf("failed test %#v", err)
