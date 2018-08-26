@@ -21,14 +21,23 @@ func getContribution(username string,t time.Time)int{
 	return count
 }
 
-func getYearContributions(username string){
-	fmt.Println("getyear`")
+func getYearContributions(username string)[]Grass{
+	layout := "2006-01-02"
+
 	doc := getDocument(username)
+	fmt.Println(len(doc.Find("rect").Nodes))
+	grasses := make([]Grass, len(doc.Find("rect").Nodes))
 	doc.Find("rect").Each(func(i int, s *goquery.Selection) {
-		//data,_ := s.Attr("data-count")
-		//count ,_ := strconv.Atoi(data)
-		fmt.Println(i)
+
+		dateStr,_ := s.Attr("data-date")
+		t, _ := time.Parse(layout, dateStr)
+		grasses[i].CreatedAt = t
+
+		data,_ := s.Attr("data-count")
+		count ,_ := strconv.Atoi(data)
+		grasses[i].DataCount = count
 	})
+	return grasses
 }
 
 

@@ -21,6 +21,11 @@ func main(){
 	fmt.Println(g)
 }
 
+func addYearData(){
+	result := getYearContributions("mogeta")
+	sendData("github_grass",result)
+}
+
 func getConfig(){
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
