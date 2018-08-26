@@ -10,7 +10,15 @@ func main(){
 
 	getConfig()
 	username := viper.GetString("username")
-	getContribution(username,time.Now())
+	date := time.Now().AddDate(0,0,-1)
+	count := getContribution(username,date)
+
+	g := []Grass{{
+		date,
+		count,
+	}}
+	sendData("github_grass",g)
+	fmt.Println(g)
 }
 
 func getConfig(){
